@@ -5,7 +5,7 @@ use emath::GuiRounding as _;
 use epaint::mutex::RwLock;
 use std::{any::Any, hash::Hash, sync::Arc};
 
-use crate::ClosableTag;
+use crate::{ClosableTag, ParentUiId};
 #[cfg(debug_assertions)]
 use crate::Stroke;
 use crate::containers::menu;
@@ -320,6 +320,8 @@ impl Ui {
         if disabled {
             child_ui.disable();
         }
+
+        self.ctx().memory_mut(|mem| mem.data.insert_temp(child_ui.id, ParentUiId(self.id)));
 
         // Register in the widget stack early, to ensure we are behind all widgets we contain:
         let start_rect = Rect::NOTHING; // This will be overwritten when `remember_min_rect` is called

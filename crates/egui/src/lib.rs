@@ -684,6 +684,9 @@ pub enum WidgetType {
     Other,
 }
 
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct ParentUiId(pub Id);
+
 // ----------------------------------------------------------------------------
 
 /// For use in tests; especially doctests.
